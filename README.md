@@ -25,5 +25,5 @@ To POST a new course use the original endpoint and write it in the body like ex:
 To PUT a course to a student use the endpoint  http://localhost:8080/api/students/{StudentsId}/courses, and change {StudentsId} to the right student id where you want to add a course, example /api/students/1/courses,
 in the body you're gonna write both the id of the student and the id of the course to update the student, like this:
 [{StudentId}, {CourseId}],
-example: [1, 1]
+example: [1, 1], and if you want to add more courses write example [1, 2, 5]. And to clear all courses from a student just send a [].
   
