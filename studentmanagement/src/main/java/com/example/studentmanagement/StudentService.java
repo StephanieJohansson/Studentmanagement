@@ -9,6 +9,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final CourseRepository CourseRepository;
 
     public List<Student> getAllStudents(){
         return studentRepository.findAll();
@@ -36,6 +37,17 @@ public class StudentService {
     public void deleteStudent(Long id){
         Student student = getStudentById(id);
         studentRepository.delete(student);
+    }
+
+    public Student addCoursesToStudent(Long studentId, List<Long> courseIds) {
+        // get student from database
+        Student student = getStudentById(studentId);
+        // get course by id
+        List<Course> courses = CourseRepository.findAllById(courseIds);
+        // add courses to students courses
+        student.getCourses().addAll(courses);
+        // save updated student
+        return studentRepository.save(student);
     }
 
 }
