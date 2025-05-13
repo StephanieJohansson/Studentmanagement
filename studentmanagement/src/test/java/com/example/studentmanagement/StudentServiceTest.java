@@ -6,9 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.*;
-
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -64,33 +62,33 @@ public class StudentServiceTest {
 
     @Test
     void getStudentByIdShouldThrowExceptionWhenIdDoesNotExist() {
-        // Arrange
+        // ARRANGE
         when(studentRepository.findById(1L)).thenReturn(Optional.empty());
 
-        // Act & Assert
+        // ACT & ASSERT
         assertThrows(IllegalArgumentException.class, () -> studentService.getStudentById(1L));
     }
 
     @Test
     void createStudentShouldReturnSavedStudent() {
-        // Arrange
+        // ARRANGE
         when(studentRepository.existsByEmail(student.getEmail())).thenReturn(false);
         when(studentRepository.save(student)).thenReturn(student);
 
-        // Act
+        // ACT
         Student savedStudent = studentService.createStudent(student);
 
-        // Assert
+        // ASSERT
         assertNotNull(savedStudent);
         verify(studentRepository, times(1)).save(student);
     }
 
     @Test
     void createStudentShouldThrowExceptionWhenEmailExists() {
-        // Arrange
+        // ARRANGE
         when(studentRepository.existsByEmail(student.getEmail())).thenReturn(true);
 
-        // Act & Assert
+        // ACT & ASSERT
         assertThrows(IllegalArgumentException.class, () -> studentService.createStudent(student));
     }
 }
