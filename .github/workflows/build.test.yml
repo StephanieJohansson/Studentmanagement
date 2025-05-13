@@ -1,0 +1,11 @@
+name: Build and test run
+
+on: [push,pull_request]
+jobs:
+  on-push:
+    if: gitgub.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+      - uses: actions/checkout@v4
+        run: echo "push detected"
